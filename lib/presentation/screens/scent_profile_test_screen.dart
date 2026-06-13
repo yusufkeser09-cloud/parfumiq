@@ -257,6 +257,7 @@ class _ScentProfileTestScreenState extends ConsumerState<ScentProfileTestScreen>
   // Step 2: Budget & Category
   Widget _buildStep2(Map<String, dynamic> state) {
     final isNicheSelected = state['designerOrNiche'] == 'niche';
+    final isDesignerSelected = state['designerOrNiche'] == 'designer';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,15 +274,20 @@ class _ScentProfileTestScreenState extends ConsumerState<ScentProfileTestScreen>
         }, enabled: !isNicheSelected),
         _buildRadioTile('Yüksek / Premium Niş (₺₺₺)', '₺₺₺', state['budget'], (val) {
           ref.read(scentTestResponseProvider.notifier).updateField('budget', val);
-        }),
+        }, enabled: !isDesignerSelected),
         _buildRadioTile('Çok Özel Koleksiyonlar (₺₺₺₺)', '₺₺₺₺', state['budget'], (val) {
           ref.read(scentTestResponseProvider.notifier).updateField('budget', val);
-        }),
+        }, enabled: !isDesignerSelected),
         const SizedBox(height: 24),
         Text('Parfüm Sınıfı Tercihiniz:', style: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 16)),
         const SizedBox(height: 12),
         _buildRadioTile('Designer Parfümleri (Herkesin Bildiği Markalar)', 'designer', state['designerOrNiche'], (val) {
           ref.read(scentTestResponseProvider.notifier).updateField('designerOrNiche', val);
+          // If designer is chosen and budget is currently premium/niche, auto-demote to designer
+          final currentBudget = state['budget'];
+          if (currentBudget == '₺₺₺' || currentBudget == '₺₺₺₺') {
+            ref.read(scentTestResponseProvider.notifier).updateField('budget', '₺₺');
+          }
         }),
         _buildRadioTile('Niş Parfümler (Özgün ve Nadide Sanat Eserleri)', 'niche', state['designerOrNiche'], (val) {
           ref.read(scentTestResponseProvider.notifier).updateField('designerOrNiche', val);

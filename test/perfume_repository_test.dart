@@ -10,9 +10,9 @@ void main() {
       repository = PerfumeRepository();
     });
 
-    test('Should load all seed perfumes (exactly 95)', () {
+    test('Should load all seed perfumes (exactly 97)', () {
       final perfumes = repository.getAll();
-      expect(perfumes.length, equals(95));
+      expect(perfumes.length, equals(97));
     });
 
     test('Should find perfume by ID', () {
