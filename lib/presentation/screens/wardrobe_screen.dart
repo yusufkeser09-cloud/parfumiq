@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/app_theme.dart';
 import '../../domain/providers/app_providers.dart';
 import '../../data/models/perfume_model.dart';
+import '../../data/repositories/perfume_repository.dart';
 import '../widgets/reusable_widgets.dart';
 import '../widgets/brand_logo_widget.dart';
 
